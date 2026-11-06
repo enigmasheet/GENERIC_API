@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace ModularMonolith.Infrastructure.Options;
 
 public sealed class CorsOptions

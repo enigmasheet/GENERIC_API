@@ -59,13 +59,13 @@ public sealed class SettingConfiguration : IEntityTypeConfiguration<Setting>
         builder.Ignore(setting => setting.DomainEvents);
 
         builder.HasIndex(setting => new
-            {
-                setting.NormalizedKey,
-                setting.Scope,
-                setting.Module,
-                setting.TenantId,
-                setting.UserId
-            })
+        {
+            setting.NormalizedKey,
+            setting.Scope,
+            setting.Module,
+            setting.TenantId,
+            setting.UserId
+        })
             .IsUnique()
             .HasFilter("\"IsDeleted\" = false")
             .HasDatabaseName("IX_Settings_UniqueKey");
