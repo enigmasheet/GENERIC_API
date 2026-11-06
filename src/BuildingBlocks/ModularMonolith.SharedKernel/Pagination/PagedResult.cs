@@ -13,8 +13,11 @@ public sealed record PagedResult<T>(
     public bool HasNextPage => Page < TotalPages;
 
     public bool HasPreviousPage => Page > 1;
+}
 
-    public static PagedResult<T> Empty(int page = 1, int pageSize = 20)
+public static class PagedResult
+{
+    public static PagedResult<T> Empty<T>(int page = 1, int pageSize = 20)
     {
         return new PagedResult<T>([], Math.Max(page, 1), Math.Clamp(pageSize, 1, PagedRequest.MaxPageSize), 0);
     }

@@ -1,9 +1,5 @@
 namespace ModularMonolith.SharedKernel.Exceptions;
 
-public sealed class DomainException : AppException
+public sealed class DomainException(string message, string code = "domain.rule_violation") : AppException(message, PlatformStatusCodes.UnprocessableEntity, code)
 {
-    public DomainException(string message, string code = "domain.rule_violation")
-        : base(message, PlatformStatusCodes.UnprocessableEntity, code)
-    {
-    }
 }

@@ -1,9 +1,5 @@
 namespace ModularMonolith.SharedKernel.Exceptions;
 
-public sealed class ConflictException : AppException
+public sealed class ConflictException(string message, string code = "resource.conflict") : AppException(message, PlatformStatusCodes.Conflict, code)
 {
-    public ConflictException(string message, string code = "resource.conflict")
-        : base(message, PlatformStatusCodes.Conflict, code)
-    {
-    }
 }
