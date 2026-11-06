@@ -1,3 +1,4 @@
+
 using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -30,7 +31,10 @@ public static class SettingValueValidator
             {
                 try
                 {
-                    _ = new Regex(validationPattern, RegexOptions.CultureInvariant, RegexTimeout);
+                    _ = new Regex(
+                        validationPattern,
+                        RegexOptions.CultureInvariant,
+                        RegexTimeout);
                 }
                 catch (ArgumentException)
                 {
@@ -61,7 +65,8 @@ public static class SettingValueValidator
         {
             if (value.Length > SettingRules.MaxValueLength)
             {
-                failures.Add($"A setting value cannot exceed {SettingRules.MaxValueLength} characters.");
+                failures.Add(
+                    $"A setting value cannot exceed {SettingRules.MaxValueLength} characters.");
             }
 
             if (!IsValidValue(dataType, value))
@@ -94,25 +99,32 @@ public static class SettingValueValidator
     {
         return dataType switch
         {
-            SettingDataType.String => true,
-            SettingDataType.Integer => long.TryParse(
+            SettingDataType.Text => true,
+
+            SettingDataType.WholeNumber => long.TryParse(
                 value,
                 NumberStyles.Integer,
                 CultureInfo.InvariantCulture,
                 out _),
-            SettingDataType.Decimal => decimal.TryParse(
+
+            SettingDataType.Numeric => decimal.TryParse(
                 value,
                 NumberStyles.Number,
                 CultureInfo.InvariantCulture,
                 out _),
-            SettingDataType.Boolean => bool.TryParse(value, out _),
+
+            SettingDataType.Flag => bool.TryParse(value, out _),
+
             SettingDataType.Json => IsValidJson(value),
+
             SettingDataType.DateTime => DateTimeOffset.TryParse(
                 value,
                 CultureInfo.InvariantCulture,
-                DateTimeStyles.RoundtripKind,
+                DateTimeStyles.None,
                 out _),
-            SettingDataType.Guid => Guid.TryParse(value, out _),
+
+            SettingDataType.UniqueIdentifier => Guid.TryParse(value, out _),
+
             _ => false
         };
     }
@@ -141,22 +153,20 @@ public static class SettingValueValidator
             return [];
         }
 
-        var values = JsonSerializer.Deserialize<string[]>(allowedValuesJson) ?? [];
-
-        return values;
+        return JsonSerializer.Deserialize<string[]>(allowedValuesJson) ?? [];
     }
 
     public static string DescribeDataType(SettingDataType dataType)
     {
         return dataType switch
         {
-            SettingDataType.String => "The value must be a string.",
-            SettingDataType.Integer => "The value must be a whole number.",
-            SettingDataType.Decimal => "The value must be a decimal number using invariant culture.",
-            SettingDataType.Boolean => "The value must be either 'true' or 'false'.",
+            SettingDataType.Text => "The value must be text.",
+            SettingDataType.WholeNumber => "The value must be a whole number.",
+            SettingDataType.Numeric => "The value must be a decimal number using invariant culture.",
+            SettingDataType.Flag => "The value must be either 'true' or 'false'.",
             SettingDataType.Json => "The value must be valid JSON.",
             SettingDataType.DateTime => "The value must be an ISO 8601 date and time.",
-            SettingDataType.Guid => "The value must be a valid GUID.",
+            SettingDataType.UniqueIdentifier => "The value must be a valid unique identifier.",
             _ => "The value is not valid for the selected data type."
         };
     }
@@ -178,7 +188,11 @@ public static class SettingValueValidator
     {
         try
         {
-            return Regex.IsMatch(value, pattern, RegexOptions.CultureInvariant, RegexTimeout);
+            return Regex.IsMatch(
+                value,
+                pattern,
+                RegexOptions.CultureInvariant,
+                RegexTimeout);
         }
         catch (ArgumentException)
         {

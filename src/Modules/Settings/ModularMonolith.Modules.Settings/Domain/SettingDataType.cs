@@ -2,11 +2,11 @@ namespace ModularMonolith.Modules.Settings.Domain;
 
 public enum SettingDataType
 {
-    String = 0,
-    Integer = 1,
-    Decimal = 2,
-    Boolean = 3,
+    Text = 0,
+    WholeNumber = 1,
+    Numeric = 2,
+    Flag = 3,
     Json = 4,
     DateTime = 5,
-    Guid = 6
+    UniqueIdentifier = 6
 }
