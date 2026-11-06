@@ -1,0 +1,21 @@
+namespace ModularMonolith.SharedKernel.Pagination;
+
+public sealed record PagedResult<T>(
+    IReadOnlyList<T> Items,
+    int Page,
+    int PageSize,
+    int TotalCount)
+{
+    public int TotalPages => PageSize <= 0
+        ? 0
+        : (int)Math.Ceiling(TotalCount / (double)PageSize);
+
+    public bool HasNextPage => Page < TotalPages;
+
+    public bool HasPreviousPage => Page > 1;
+
+    public static PagedResult<T> Empty(int page = 1, int pageSize = 20)
+    {
+        return new PagedResult<T>([], Math.Max(page, 1), Math.Clamp(pageSize, 1, PagedRequest.MaxPageSize), 0);
+    }
+}

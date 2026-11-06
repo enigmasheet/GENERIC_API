@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
+    <Project Path="src/Api/ModularMonolith.Api/ModularMonolith.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/ModularMonolith.Contracts/ModularMonolith.Contracts.csproj" />
+    <Project Path="src/BuildingBlocks/ModularMonolith.Infrastructure/ModularMonolith.Infrastructure.csproj" />
+    <Project Path="src/BuildingBlocks/ModularMonolith.SharedKernel/ModularMonolith.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/src/Migrator/">
+    <Project Path="src/Migrator/ModularMonolith.DbMigrator/ModularMonolith.DbMigrator.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Settings/">
+    <Project Path="src/Modules/Settings/ModularMonolith.Modules.Settings/ModularMonolith.Modules.Settings.csproj" />
+  </Folder>
+  <Folder Name="/src/Tests/">
+    <Project Path="src/Tests/ModularMonolith.ArchitectureTests/ModularMonolith.ArchitectureTests.csproj" />
+    <Project Path="src/Tests/ModularMonolith.FunctionalTests/ModularMonolith.FunctionalTests.csproj" />
+    <Project Path="src/Tests/ModularMonolith.IntegrationTests/ModularMonolith.IntegrationTests.csproj" />
+    <Project Path="src/Tests/ModularMonolith.UnitTests/ModularMonolith.UnitTests.csproj" />
+  </Folder>
+</Solution>
